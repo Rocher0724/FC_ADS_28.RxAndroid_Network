@@ -30,22 +30,30 @@
 
     <TextView
         android:id="@+id/cnet2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="9dp"
         android:text="TextView"
         app:layout_constraintLeft_toLeftOf="@+id/cnet1"
-        app:layout_constraintTop_toBottomOf="@+id/cnet1" />
+        app:layout_constraintTop_toBottomOf="@+id/cnet1"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav1" />
 
     <TextView
         android:id="@+id/nav2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintLeft_toLeftOf="@+id/nav1"
-        app:layout_constraintTop_toBottomOf="@+id/nav1" />
+        app:layout_constraintTop_toBottomOf="@+id/nav1"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
 
 </android.support.constraint.ConstraintLayout>

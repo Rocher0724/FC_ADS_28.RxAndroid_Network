@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    TextView cnet1, cnet2, nav1, nav2;
+    TextView cnet2, nav2;
 //    Button button;
 
     @Override
@@ -23,9 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cnet1 = (TextView) findViewById(R.id.cnet1);
         cnet2 = (TextView) findViewById(R.id.cnet2);
-        nav1 = (TextView) findViewById(R.id.nav1);
         nav2 = (TextView) findViewById(R.id.nav2);
 
 //        button = (Button) findViewById(R.id.button);
@@ -35,15 +33,32 @@ public class MainActivity extends AppCompatActivity {
 
         // 여기서는 Rx android 2.0.1 이다.
         // Observable<String> 에서 제너릭으로 타입을 지정해주었다.
-        Observable<String> naverObservable =
+        Observable<String> daumObservable =
                 Observable.create(emitter -> {
-                    Remote.getUrlByGet("naver.com");
-        });
+                    emitter.onNext(Remote.getUrlByGet("daum.net"));
+                });
 
         Observable<String> cnetObservable =
                 Observable.create(emitter -> {
-                    Remote.getUrlByGet("cnet.co.kr");
+                    emitter.onNext(Remote.getUrlByGet("cnet.co.kr"));
                 });
+
+        cnetObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result ->{cnet2.setText(result);});
+
+
+        daumObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    s -> {nav2.setText(s);}
+                            , throwable -> {Log.e(TAG, "[observer3] error : " + throwable.getMessage());}
+                            , () -> {Log.d(TAG, "[observer3] complete!");}
+
+
+                );
 
     }
 }
